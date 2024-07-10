@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To Do List</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: #fff;
+            width: 400px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .header {
+            background-color: #ff9800;
+            padding: 30px 40px;
+            color: white;
+            text-align: center;
+        }
+
+        .header h2 {
+            margin: 0;
+            font-size: 36px;
+        }
+
+        input {
+            width: 75%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        #addBtn {
+            padding: 10px;
+            width: 20%;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #addBtn:hover {
+            background-color: #555;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        ul li {
+            padding: 15px 10px;
+            background: #f9f9f9;
+            font-size: 18px;
+            transition: background-color 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        ul li:nth-child(odd) {
+            background: #eee;
+        }
+
+        ul li:hover {
+            background: #ddd;
+        }
+
+        ul li.checked {
+            background: #888;
+            color: #fff;
+            text-decoration: line-through;
+        }
+
+        .close {
+            padding: 10px;
+            background-color: #ff4d4d;
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .close:hover {
+            background-color: #ff1a1a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="myDiv" class="header">
+            <h2>To Do List</h2>
+            <input type="text" id="myInput" placeholder="Title...">
+            <span onclick="newElement()" id="addBtn">Add</span>
+        </div>
+        <ul id="myUl">
+            <li>Go to tuition<span class="close" onclick="removeElement(this)">&#10006;</span></li>
+            <li>To do Homework<span class="close" onclick="removeElement(this)">&#10006;</span></li>
+            <li>Learn to Code<span class="close" onclick="removeElement(this)">&#10006;</span></li>
+            <li>Go to swimming<span class="close" onclick="removeElement(this)">&#10006;</span></li>
+            <li>Attend web seminar<span class="close" onclick="removeElement(this)">&#10006;</span></li>
+        </ul>
+    </div>
+
+    <script>
+        function removeElement(element) {
+            element.parentElement.style.display = 'none';
+        }
+
+        function newElement() {
+            var li = document.createElement("li");
+            var inputValue = document.getElementById("myInput").value;
+            var t = document.createTextNode(inputValue);
+            li.appendChild(t);
+            if (inputValue === "") {
+                alert("You must write something!");
+            } else {
+                document.getElementById("myUl").appendChild(li);
+            }
+            document.getElementById("myInput").value = "";
+
+            var span = document.createElement("SPAN");
+            var txt = document.createTextNode("\u00D7");
+            span.className = "close";
+            span.appendChild(txt);
+            span.onclick = function () {
+                this.parentElement.style.display = 'none';
+            };
+            li.appendChild(span);
+        }
+
+        var list = document.querySelector('ul');
+        list.addEventListener('click', function (ev) {
+            if (ev.target.tagName === 'LI') {
+                ev.target.classList.toggle('checked');
+            }
+        }, false);
+    </script>
+</body>
+</html>
